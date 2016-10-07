@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ITP14级头像制造机器</title>
+	<style>
+		@font-face {
+		    font-family: qinke;
+		    src: url(qinke.ttf);
+		}
+
+		.logo
+		{
+			width:600px;
+			height:600px;
+			background-image: url(logo.jpg);
+			background-size: 100%;
+		}
+
+		.name
+		{
+			position: relative;
+		    font-size: 100px;
+		    font-family: qinke;
+		    top: 420px;
+		    left: 50%;
+		    transform: translateX(-50%);
+		    text-align: justify;
+		    display: inline-block;
+		    color: gray;
+
+		}
+
+		button
+		{
+			box-sizing: content-box;
+			/*button在display为block之后，chrome默认为borderbox了*/
+			display: block;
+			text-align: center;
+			width:200px;
+			padding:20px;
+			margin:0 auto;
+			border-radius: 10px;
+			color: #888;
+	    	background: #fafafa;
+	    	border: 1px solid #ddd;
+			margin-bottom: 30px;
+			cursor:pointer;
+			font-size: 22px;
+
+			/*测试放大的效果				 */
+			/*transform:translateY(100px);*/
+		}
+
+		form
+		{
+			/*display: block;*/
+			margin: 0 auto;
+			width:200px;
+			font-size: 60px;
+		}
+
+		input
+		{
+			font-size: 40px;
+			width:180px;
+			margin:0 auto;
+			margin-bottom: 20px;
+		}
+
+		.logo,.next,p
+		{
+			margin: 0 auto;
+		}
+
+		.logo
+		{
+			margin-bottom: 20px;
+		}
+
+		img
+		{
+			display:block;
+			margin:0 auto;
+		}
+
+		p
+		{
+			font-size: 40px;
+			text-align: center;
+		}
+	</style>
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+	<script type="text/javascript" src="../logo/html2canvas0.5.1.js"></script>
+</head>
+<body>
+	<img src="logo.jpg" style="display: none">;
+	<div class = "logo">
+		<div class="name">(你的名字)</div>
+	</div>
+
+	<form class="center">
+		姓名：<input id="name" type="text" value=""></input>
+	</form>
+
+	<div class="next"></div>
+	<button onclick="getName()"">提交</button>
+	<button onclick="createImg()"">生成头像</button>
+	<p>*一开始载入有较大延时是在下载字体文件请等待么么哒</p>
+	<p>**生成头像后长按下面的图片即可保存（头像有轻微失真）</p>
+	<p>***如果无法出现保存选项请双击屏幕放大后再长按</p>
+</body>
+<script>
+	function getName()
+	{
+		var name = $("#name").val();
+		console.log(name);
+		var namePrint = $(".name");
+		namePrint.text(name);
+	};
+
+	function createImg()
+	{
+		html2canvas($(".logo"),
+		{
+			onrendered:function(canvas)
+			{
+		 		//生成img
+		 		var dataUrl = canvas.toDataURL();
+	            var newImg = document.createElement("img");
+	            newImg.src =  dataUrl;
+	            $(".next").html("");
+	            $(".next").html(newImg);
+			}
+		})
+	}
+
+
+	$(document).ready(
+	{
+
+
+	});
+</script>
+</html>
